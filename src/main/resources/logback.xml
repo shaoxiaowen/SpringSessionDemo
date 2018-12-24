@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoding>UTF-8</encoding>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <appender name="demo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--tomcat路径-->
+        <File>/Users/shaoxiaowen/Desktop/Tomcats/tomcat1/logs/springsessondemo.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/Users/shaoxiaowen/Desktop/Tomcats/tomcat1/logs/springsessondemo.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <append>true</append>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<File>d:/demollog/error.log</File>-->
+        <File>/Users/shaoxiaowen/Desktop/Tomcats/tomcat1/logs/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/Users/shaoxiaowen/Desktop/Tomcats/tomcat1/logs/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <!--<fileNamePattern>d:/demolog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
+            <append>true</append>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <logger name="com.demo" additivity="false" level="INFO" >
+        <appender-ref ref="demo" />
+        <appender-ref ref="console"/>
+    </logger>
+
+
+
+    <!-- geelynote mybatis log 日志 -->
+
+    <logger name="com.demo.dao" level="DEBUG"/>
+
+
+
+    <root level="DEBUG">
+        <appender-ref ref="console"/>
+        <appender-ref ref="error"/>
+    </root>
+
+</configuration>
